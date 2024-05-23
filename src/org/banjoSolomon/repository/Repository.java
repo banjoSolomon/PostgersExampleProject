@@ -1,2 +1,6 @@
-package org.banjoSolomon.repository;public interface Repository {
+package org.banjoSolomon.repository;
+
+public interface Repository <T> {
+    T save(T t);
 }
+

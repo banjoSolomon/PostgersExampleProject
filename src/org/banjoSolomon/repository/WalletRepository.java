@@ -1,2 +1,4 @@
-package org.banjoSolomon.repository;public class WalletRepository {
+package org.banjoSolomon.repository;
+
+public class WalletRepository {
 }
