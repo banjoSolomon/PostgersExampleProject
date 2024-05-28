@@ -2,8 +2,10 @@ package org.banjoSolomon;
 
 import org.banjoSolomon.models.User;
 import org.banjoSolomon.repository.UserRepository;
+import org.banjoSolomon.repository.db.DatabaseConnection;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +16,10 @@ public class UserRepositoryTest {
     private final UserRepository userRepository = new UserRepository();
 
     @Test
-    public void saveUserTest(){
+    void saveUserTest() {
         User user = new User();
-        user.setWalletId(1L);
         User savedUser = userRepository.saveUser(user);
         assertNotNull(savedUser);
-
     }
 
 
@@ -27,31 +27,38 @@ public class UserRepositoryTest {
     public void testUpdateUser(){
         Long userId = 2L;
         Long walletId = 200L;
-        User user = userRepository.updateUser(userId, walletId);
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        User user = userRepository.updateUser(connection,userId, walletId);
         assertNotNull(user);
-
         assertEquals(200L, user.getWalletId());
-
     }
-    @Test
-    public void testDeleteUser() {
-        userRepository.deleteUser(1L);
-        Optional<User> user = userRepository.findById(1L);
-        assertTrue(user.isEmpty());
 
-    }
+
     @Test
     public void testFindUserById(){
-        User user = (User) userRepository.findById(2L).orElseThrow();
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        User user = userRepository.findById(connection, 2L).orElseThrow();
         assertNotNull(user);
-        assertEquals(2L,user.getId());
- }
+        assertEquals(2L, user.getId());
+    }
 
- @Test
-    public void testFindAll(){
+
+    @Test
+    public void testFindAllUsers(){
         List<User> users = userRepository.findAll();
+        System.out.println("users: "+users);
         assertNotNull(users);
-        assertEquals(4,users.size());
- }
+        assertEquals(4, users.size());
+    }
+
+    @Test
+    public void testDeleteUser(){
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        userRepository.deleteById(1L);
+        Optional<User> user = userRepository.findById(connection,1L);
+        assertTrue(user.isEmpty());
+    }
+
+
 
 }

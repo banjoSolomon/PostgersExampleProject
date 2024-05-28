@@ -3,60 +3,39 @@ package org.banjoSolomon.repository;
 import org.banjoSolomon.exception.UserDeleteFailedException;
 import org.banjoSolomon.exception.UserUpdateFailedException;
 import org.banjoSolomon.models.User;
+import org.banjoSolomon.repository.db.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @SuppressWarnings(value = {"all"})
 public class UserRepository {
-    public static Connection connect() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/banjo-solomon"; //TODO: postgres -> jdbc: postgresql://localhost:5432
-        // TODO: mysql-> jdbc
-        String username = "postgres";
-        String password = "Solomon11";
-        try {
-            return DriverManager.getConnection(url, username, password);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public User saveUser(User user) {
-        String sql = "insert into users(id, wallet_id) values (?,?)";
-        try (Connection connection = connect()) {
+        String sql = "insert into users (id, wallet_id) values (?,?)";
+        DatabaseConnection databaseConnectionManager = DatabaseConnection.getInstance();
+        try(Connection connection = databaseConnectionManager.getConnection()){
+
             var preparedStatement = connection.prepareStatement(sql);
-            Long id = generateId();
+            Long id = databaseConnectionManager.generateId("users");
             preparedStatement.setLong(1, id);
             preparedStatement.setObject(2, user.getWalletId());
             preparedStatement.execute();
-            return getUserBy(id);
-
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getMessage());
+            return getUserBy(connection, id);
+        }catch (SQLException exception){
+            System.err.println("Error: "+exception.getMessage());
             throw new RuntimeException("Failed to connect to database");
         }
     }
 
-    private Long generateId() {
-        try (Connection connection = connect()) {
-            String sql = "SELECT max(id) FROM users";
-            var statememt = connection.prepareStatement(sql);
-            ResultSet resultSet = statememt.executeQuery();
-            resultSet.next();
-            Long lastIdGenerated = resultSet.getLong(1);
-            return lastIdGenerated + 1;
-
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception.getMessage());
-        }
-    }
 
 
-    public User getUserBy(Long id) {
+    private User getUserBy(Connection connection, Long id){
         String sql = "select * from users where id=?";
-        try (Connection connection = connect()) {
+        try{
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             var resultSet = preparedStatement.executeQuery();
@@ -67,56 +46,65 @@ public class UserRepository {
             user.setId(userId);
             user.setWalletId(walletId);
             return user;
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-
+        }catch (SQLException exception){
+            return null;
         }
-        return null;
-    }
-    public User updateUser(Long userId, Long walletId){
-      try(Connection connection = connect()){
-          String sql = "UPDATE users SET wallet_id =? WHERE id=?";
-          PreparedStatement statement =   connection.prepareStatement(sql);
-          statement.setLong(1, walletId);
-          statement.setLong(2, userId);
-          statement.executeUpdate();
-          return getUserBy(userId);
-      }catch (SQLException e){
-          throw new UserUpdateFailedException(e.getMessage());
-
-      }
     }
 
-    public void deleteUser(Long userId){
-        try (Connection connection = connect()) {
-            String sql = "DELETE FROM users WHERE id=?";
+
+    public User updateUser(Connection connection, Long userId, Long walletId){
+        try{
+            String sql = "UPDATE users SET wallet_id=? WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, userId);
+            statement.setLong(1, walletId);
+            statement.setLong(2, userId);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new UserDeleteFailedException(e.getMessage());
+            return getUserBy(connection, userId);
+        }catch (SQLException exception){
+            throw new UserUpdateFailedException(exception.getMessage());
         }
     }
 
-    public Optional findById(Long id) {
-        User user = getUserBy(id);
-        if (user != null) {
-            return Optional.of(user);
 
-        }
+    public Optional<User> findById(Connection connection, Long id) {
+        User user =  getUserBy(connection, id);
+        if (user!=null) return Optional.of(user);
         return Optional.empty();
     }
 
+    public void deleteById(Long id) {
+        try(Connection connection = DatabaseConnection.getInstance().getConnection()){
+            String sql = "DELETE FROM users WHERE id=?";
+            var statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        }catch (SQLException exception){
+            throw new RuntimeException("Failed to delete user");
+        }
+    }
 
     public List<User> findAll() {
-        try (Connection connection = connect()){
+
+        try(Connection connection = DatabaseConnection.getInstance().getConnection()){
             String sql = "SELECT * FROM users";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-
+            return extractUsersFrom(resultSet);
         }catch (SQLException exception){
-
+            return null;
         }
-        return null;
+    }
+
+    private List<User> extractUsersFrom(ResultSet resultSet) throws SQLException {
+        List<User> users = new ArrayList<>();
+        while (resultSet.next()){
+            Long id = resultSet.getLong("id");
+            Long walletId = resultSet.getLong("wallet_id");
+            User user = new User();
+            user.setId(id);
+            user.setWalletId(walletId);
+            users.add(user);
+        }
+        return users;
     }
 }
