@@ -23,25 +23,32 @@ public class UserRepository {
     }
 
     public User saveUser(User user) {
-        String getIdSqlStatement = "select count(*) from users";
         String sql = "insert into users(id, wallet_id) values (?,?)";
-
         try (Connection connection = connect()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(getIdSqlStatement);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            long currentId = resultSet.getLong(1);
-
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, currentId + 1);
-            if (user.getWalletId() != null)
-                preparedStatement.setLong(2, user.getWalletId());
+            var preparedStatement = connection.prepareStatement(sql);
+            Long id = generateId();
+            preparedStatement.setLong(1, id);
+            preparedStatement.setObject(2, user.getWalletId());
             preparedStatement.execute();
+            return getUserBy(id);
 
-            return getUserBy(currentId + 1);
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error: " + e.getMessage());
             throw new RuntimeException("Failed to connect to database");
+        }
+    }
+
+    private Long generateId() {
+        try (Connection connection = connect()) {
+            String sql = "SELECT max(id) FROM users";
+            var statememt = connection.prepareStatement(sql);
+            ResultSet resultSet = statememt.executeQuery();
+            resultSet.next();
+            Long lastIdGenerated = resultSet.getLong(1);
+            return lastIdGenerated + 1;
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception.getMessage());
         }
     }
 

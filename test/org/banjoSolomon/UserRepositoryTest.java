@@ -19,8 +19,9 @@ public class UserRepositoryTest {
         User savedUser = userRepository.saveUser(user);
         assertNotNull(savedUser);
 
-
     }
+
+
     @Test
     public void testUpdateUser(){
         Long userId = 2L;
@@ -37,7 +38,12 @@ public class UserRepositoryTest {
         Optional<User> user = userRepository.findById(1L);
         assertTrue(user.isEmpty());
 
-
     }
+    @Test
+    public void testFindUserById(){
+        User user = (User) userRepository.findById(2L).orElseThrow();
+        assertNotNull(user);
+        assertEquals(2L,user.getId());
+ }
 
 }
