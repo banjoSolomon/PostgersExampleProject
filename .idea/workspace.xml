@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bd6f995-2fc0-452d-9866-65b18cf712d4" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/banjoSolomon/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/banjoSolomon/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/org/banjoSolomon/UserRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/org/banjoSolomon/UserRepositoryTest.java" afterDir="false" />
     </list>
@@ -54,6 +53,8 @@
     "JUnit.UserRepositoryTest.executor": "Run",
     "JUnit.UserRepositoryTest.saveUserTest.executor": "Run",
     "JUnit.UserRepositoryTest.testDeleteUser.executor": "Run",
+    "JUnit.UserRepositoryTest.testFindAll.executor": "Run",
+    "JUnit.UserRepositoryTest.testFindUserById.executor": "Run",
     "JUnit.UserRepositoryTest.testUpdateUser.executor": "Run",
     "Repository.Attach.Annotations": "true",
     "Repository.Attach.JavaDocs": "false",
@@ -83,7 +84,7 @@
       <recent name="org.banjoSolomon" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserRepositoryTest">
+  <component name="RunManager" selected="JUnit.UserRepositoryTest.testFindAll">
     <configuration name="UserRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ExampleSpring" />
       <extension name="coverage">
@@ -115,7 +116,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserRepositoryTest.testDeleteUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserRepositoryTest.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ExampleSpring" />
       <extension name="coverage">
         <pattern>
@@ -125,7 +126,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.banjoSolomon" />
       <option name="MAIN_CLASS_NAME" value="org.banjoSolomon.UserRepositoryTest" />
-      <option name="METHOD_NAME" value="testDeleteUser" />
+      <option name="METHOD_NAME" value="testFindAll" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -165,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserRepositoryTest.testFindAll" />
         <item itemvalue="JUnit.UserRepositoryTest" />
         <item itemvalue="JUnit.UserRepositoryTest.testUpdateUser" />
         <item itemvalue="JUnit.UserRepositoryTest.testFindUserById" />
         <item itemvalue="JUnit.UserRepositoryTest.saveUserTest" />
-        <item itemvalue="JUnit.UserRepositoryTest.testDeleteUser" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +191,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716460526354</updated>
       <workItem from="1716460528323" duration="18688000" />
-      <workItem from="1716884493406" duration="9316000" />
+      <workItem from="1716884493406" duration="11484000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -216,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716893130169</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update">
+      <option name="closed" value="true" />
+      <created>1716895652675</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716895652675</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

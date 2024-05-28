@@ -4,6 +4,7 @@ import org.banjoSolomon.models.User;
 import org.banjoSolomon.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,6 +45,13 @@ public class UserRepositoryTest {
         User user = (User) userRepository.findById(2L).orElseThrow();
         assertNotNull(user);
         assertEquals(2L,user.getId());
+ }
+
+ @Test
+    public void testFindAll(){
+        List<User> users = userRepository.findAll();
+        assertNotNull(users);
+        assertEquals(4,users.size());
  }
 
 }

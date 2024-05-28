@@ -5,6 +5,7 @@ import org.banjoSolomon.exception.UserUpdateFailedException;
 import org.banjoSolomon.models.User;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 
 @SuppressWarnings(value = {"all"})
@@ -107,5 +108,15 @@ public class UserRepository {
     }
 
 
+    public List<User> findAll() {
+        try (Connection connection = connect()){
+            String sql = "SELECT * FROM users";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
 
+        }catch (SQLException exception){
+
+        }
+        return null;
+    }
 }
