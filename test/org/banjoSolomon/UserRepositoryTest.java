@@ -2,19 +2,23 @@ package org.banjoSolomon;
 
 import org.banjoSolomon.models.User;
 import org.banjoSolomon.repository.UserRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class UserRepositoryTest {
     private final UserRepository userRepository = new UserRepository();
+
     @Test
     public void saveUserTest(){
         User user = new User();
         user.setWalletId(1L);
         User savedUser = userRepository.saveUser(user);
         assertNotNull(savedUser);
+
 
     }
     @Test
@@ -23,7 +27,17 @@ public class UserRepositoryTest {
         Long walletId = 200L;
         User user = userRepository.updateUser(userId, walletId);
         assertNotNull(user);
-        assertEquals(userId, user.getId());
+
+        assertEquals(200L, user.getWalletId());
+
+    }
+    @Test
+    public void testDeleteUser() {
+        userRepository.deleteUser(1L);
+        Optional<User> user = userRepository.findById(1L);
+        assertTrue(user.isEmpty());
+
+
     }
 
 }

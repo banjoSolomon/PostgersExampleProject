@@ -1,9 +1,12 @@
 package org.banjoSolomon.repository;
 
+import org.banjoSolomon.exception.UserDeleteFailedException;
 import org.banjoSolomon.exception.UserUpdateFailedException;
 import org.banjoSolomon.models.User;
 
 import java.sql.*;
+import java.util.Optional;
+
 @SuppressWarnings(value = {"all"})
 public class UserRepository {
     public static Connection connect() throws SQLException {
@@ -43,7 +46,7 @@ public class UserRepository {
     }
 
 
-    private User getUserBy(Long id) {
+    public User getUserBy(Long id) {
         String sql = "select * from users where id=?";
         try (Connection connection = connect()) {
             var preparedStatement = connection.prepareStatement(sql);
@@ -58,14 +61,16 @@ public class UserRepository {
             return user;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            throw new RuntimeException("Failed to connect to database");
+
         }
+        return null;
     }
     public User updateUser(Long userId, Long walletId){
       try(Connection connection = connect()){
-          String sql = "UPDATE users SET walllet_id = ? WHERE id=?";
+          String sql = "UPDATE users SET wallet_id =? WHERE id=?";
           PreparedStatement statement =   connection.prepareStatement(sql);
           statement.setLong(1, walletId);
+          statement.setLong(2, userId);
           statement.executeUpdate();
           return getUserBy(userId);
       }catch (SQLException e){
@@ -73,4 +78,27 @@ public class UserRepository {
 
       }
     }
+
+    public void deleteUser(Long userId){
+        try (Connection connection = connect()) {
+            String sql = "DELETE FROM users WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new UserDeleteFailedException(e.getMessage());
+        }
+    }
+
+    public Optional findById(Long id) {
+        User user = getUserBy(id);
+        if (user != null) {
+            return Optional.of(user);
+
+        }
+        return Optional.empty();
+    }
+
+
+
 }

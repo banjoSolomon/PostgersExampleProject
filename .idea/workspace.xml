@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bd6f995-2fc0-452d-9866-65b18cf712d4" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/org/banjoSolomon/exception/UserUpdateFailedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/org/banjoSolomon/UserRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/banjoSolomon/exception/UserDeleteFailedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/banjoSolomon/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/banjoSolomon/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExampleSpring.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ExampleSpring.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/banjoSolomon/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/banjoSolomon/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/org/banjoSolomon/RepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/org/banjoSolomon/RepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/org/banjoSolomon/UserRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/org/banjoSolomon/UserRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,10 +55,12 @@
     "JUnit.RepositoryTest.executor": "Run",
     "JUnit.RepositoryTest.testDatabaseConnection.executor": "Run",
     "JUnit.UserRepositoryTest.executor": "Run",
+    "JUnit.UserRepositoryTest.saveUserTest.executor": "Run",
+    "JUnit.UserRepositoryTest.testDeleteUser.executor": "Run",
     "JUnit.UserRepositoryTest.testUpdateUser.executor": "Run",
-    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.Annotations": "true",
     "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
+    "Repository.Attach.Sources": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -73,8 +76,8 @@
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/DELL/IdeaProjects/ExampleSpring/src/Main.java",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -83,22 +86,7 @@
       <recent name="org.banjoSolomon" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserRepositoryTest.testUpdateUser">
-    <configuration name="RepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ExampleSpring" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.banjoSolomon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.banjoSolomon" />
-      <option name="MAIN_CLASS_NAME" value="org.banjoSolomon.RepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.UserRepositoryTest.testDeleteUser">
     <configuration name="RepositoryTest.testDatabaseConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ExampleSpring" />
       <extension name="coverage">
@@ -130,6 +118,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserRepositoryTest.saveUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExampleSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.banjoSolomon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.banjoSolomon" />
+      <option name="MAIN_CLASS_NAME" value="org.banjoSolomon.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="saveUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRepositoryTest.testDeleteUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExampleSpring" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.banjoSolomon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.banjoSolomon" />
+      <option name="MAIN_CLASS_NAME" value="org.banjoSolomon.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="testDeleteUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserRepositoryTest.testUpdateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ExampleSpring" />
       <extension name="coverage">
@@ -148,10 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserRepositoryTest.testDeleteUser" />
         <item itemvalue="JUnit.UserRepositoryTest.testUpdateUser" />
+        <item itemvalue="JUnit.UserRepositoryTest.saveUserTest" />
         <item itemvalue="JUnit.RepositoryTest.testDatabaseConnection" />
         <item itemvalue="JUnit.UserRepositoryTest" />
-        <item itemvalue="JUnit.RepositoryTest" />
       </list>
     </recent_temporary>
   </component>
@@ -172,7 +193,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716460526354</updated>
       <workItem from="1716460528323" duration="18688000" />
-      <workItem from="1716884493406" duration="1912000" />
+      <workItem from="1716884493406" duration="6921000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -182,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716474097175</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update">
+      <option name="closed" value="true" />
+      <created>1716886528290</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1716886528290</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
